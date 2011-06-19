@@ -1,7 +1,10 @@
 *.swp
 *.pyc
+
 todo.txt
+
 /sessions/*
 /errors/*
 /cache/*
 /uploads/*
+/databases/*

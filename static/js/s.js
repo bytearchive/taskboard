@@ -128,7 +128,8 @@ var HTML_CARD = "<section class=card><div class=text>",
         // delete
         d: function ($card) {
             $card.fadeOut(function () {
-                $card.remove();
+                //$card.remove();
+                $card.data(P_STATE, S_DELETED);
                 save();
             });
         },
@@ -407,9 +408,9 @@ function merge() {
     var json = storage.getItem(STORAGE_KEY)
     $.post('merge.json', {'json': json}, function(mergedData){
             console.info('save post done');
-            console.warn(mergedData);
-            json = JSON.stringify(mergedData);
-            storage.setItem(STORAGE_KEY, json);
+            console.debug(mergedData);
+
+            storage.setItem(STORAGE_KEY,JSON.stringify(mergedData));
             show_todo();
         }, 'json');
 }
@@ -417,15 +418,12 @@ function merge() {
 function show_todo() {
     //consople.debug($('.card')); 
     $board.$(CARD).each(function () {
-        $card = $(this);
-        $card.detach();
+        $(this).remove();
     });
     var todos = JSON.parse(storage.getItem(STORAGE_KEY));
     $.each(todos, function (i, card) {
-        console.warn(card);
         $(HTML_CARD)
             .aC(card.type || COLORS[5]) // .addClass
-            //.css(card) // we are interested in top and left values only, rest will be hopefully ignored ;)
             .css({top: parseInt(card.top), left: parseInt(card.left)})
             .saveText(card.text)
             .data(P_UUID, card.uuid)
@@ -480,7 +478,7 @@ $(function () { // $(document).ready() -- theoretically not needed, as we don't 
                     .saveText(tip())
                     .to($board)
                     .trigger(event);   // start dragging new card
-                console.warn('new item');
+                console.info('new item');
 
                 $card.hide();             // hide deck card
                 setTimeout(function () {  // and show it again after a while

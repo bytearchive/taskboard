@@ -16,7 +16,6 @@ def _to_datetime(s):
          if len(x) > 0]
     return datetime(*t)
 
-
 def _fetch_all_json():
     logger.log(32, 'fetching items')
     todos = db().select(db.todo.ALL)
@@ -25,25 +24,26 @@ def _fetch_all_json():
         json += [{
             'uuid': t.uuid,
             'lastUpdate': t.lastUpdate.strftime("%Y-%m-%d %H:%M:%S"),
-            'state': t.state,
+            'state': 'updated',
             'type': t.type,
             'top': t.top,
             'left': t.left,
             'text': t.text
         }]
-    logger.log(32, json)
     return simplejson.dumps(json) 
 
 def _update(cards):
-    cards = filter(lambda c: c.has_key('uuid'), cards)
+    cards = filter(lambda c: c.has_key('uuid') and c['state'] != 'updated', cards)
     for c in cards:
         logger.log(32, c)
-        if c['state'] == 'changed':
+        state = c['state']
+        del c['state']
+        if state == 'changed':
             t = db.todo(uuid=c['uuid'])
             lastUpdate = _to_datetime(c['lastUpdate'])
             if t is None:
                 c['lastUpdate'] = datetime.now()
-                logger.warn('insert')
+                logger.info(32, 'insert')
                 db.todo.insert(**c)
             elif lastUpdate >= t.lastUpdate:   # in case 'todo' was updated from diff places
                 c['lastUpdate'] = lastUpdate
