@@ -386,13 +386,15 @@ function save() {
     
     $board.$(CARD).each(function () {
         $card = $(this);
-        cards.push($.extend($card.offset(), {
+        cards.push({
+            marginLeft: $card.offset().left,
+            marginTop: $card.offset().top,
             type: $card.color(),
             text: $card.data(VALUE) || "",
             uuid: $card.data(P_UUID),
             state: $card.data(P_STATE),
             lastUpdate: $card.data(P_LAST_UPDATE)
-        }));
+        });
     });
 
     var json = JSON.stringify(cards);
@@ -424,7 +426,7 @@ function show_todo() {
     $.each(todos, function (i, card) {
         $(HTML_CARD)
             .aC(card.type || COLORS[5]) // .addClass
-            .css({top: parseInt(card.top), left: parseInt(card.left)})
+            .css({top: parseInt(card.marginTop), left: parseInt(card.marginLeft)})
             .saveText(card.text)
             .data(P_UUID, card.uuid)
             .data(P_STATE, card.state)

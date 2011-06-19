@@ -26,8 +26,8 @@ def _fetch_all_json():
             'lastUpdate': t.lastUpdate.strftime("%Y-%m-%d %H:%M:%S"),
             'state': 'updated',
             'type': t.type,
-            'top': t.top,
-            'left': t.left,
+            'marginTop': t.marginTop,
+            'marginLeft': t.marginLeft,
             'text': t.text
         }]
     return simplejson.dumps(json) 
