@@ -18,7 +18,7 @@ def _to_datetime(s):
 
 def _fetch_all_json():
     logger.log(32, 'fetching items')
-    todos = db().select(db.todo.ALL)
+    todos = db(db.todo.isDeleted==False).select()
     json = []
     for t in todos:
         json += [{
@@ -32,34 +32,39 @@ def _fetch_all_json():
         }]
     return simplejson.dumps(json) 
 
-def _update(cards):
+def _update_todo(c):
+    t = db.todo(uuid=c['uuid'])
+    c['lastUpdate'] = _to_datetime(c['lastUpdate'])
+    if t is None:
+        db.todo.insert(**c)
+        logger.info(32, 'item inserted ' + c['text'])
+    elif c['lastUpdate'] >= t.lastUpdate:   # in case 'todo' was updated from diff places
+        t.update_record(**c)
+        logger.info(32, 'item updated ' + c['text'])
+
+def _delete_todo(c):
+    t = db.todo(uuid=c['uuid'])
+    if not t is None:
+        c['lastUpdate'] = _to_datetime(c['lastUpdate'])
+        c['isDeleted'] = True
+        t.update_record(**c)
+        logger.log(32, 'item delted ' + c['text'])
+
+def _do_merge(cards):
     cards = filter(lambda c: c.has_key('uuid') and c['state'] != 'updated', cards)
-    for c in cards:
-        logger.log(32, c)
-        state = c['state']
-        del c['state']
-        if state == 'changed':
-            t = db.todo(uuid=c['uuid'])
-            lastUpdate = _to_datetime(c['lastUpdate'])
-            if t is None:
-                c['lastUpdate'] = datetime.now()
-                logger.info(32, 'insert')
-                db.todo.insert(**c)
-            elif lastUpdate >= t.lastUpdate:   # in case 'todo' was updated from diff places
-                c['lastUpdate'] = lastUpdate
-                t.update_record(**c)
-    logger.log(32, 'items saved')
+    changed_todos = filter(lambda x: x['state'] == 'changed', cards)
+    deleted_todos = filter(lambda x: x['state'] == 'deleted', cards)
+
+    def _delete_state(todo):
+        del todo['state']
+    map(_delete_state, cards)
+    map(_update_todo, changed_todos)
+    map(_delete_todo, deleted_todos)
 
 def merge():
     logger.log(32, 'start merging')
     cards = simplejson.loads(request.vars.json);
-    cards is None or _update(cards)
-    return db.todo.id.count() > 0 and _fetch_all_json() or dict()
+    cards is None or _do_merge(cards)
+    #return db.todo.id.count() > 0 and _fetch_all_json() or dict()
+    return _fetch_all_json()
     
-def load():
-    #a = {'type':'orange', 'top':50, 'left':100, 'text':'a note from server #server'}
-    cards = [] 
-    json = simplejson.dumps(cards)
-    logger.log(32, 'item loaded')
-    return json
-
