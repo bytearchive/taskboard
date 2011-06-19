@@ -5,7 +5,7 @@ from datetime import datetime
 
 logger = logging.getLogger("[todo]")
 
-
+@auth.requires_login()
 def index(): 
     return dict()
 
@@ -18,7 +18,8 @@ def _to_datetime(s):
 
 def _fetch_all_json():
     logger.log(32, 'fetching items')
-    todos = db(db.todo.isDeleted==False).select()
+    query = (db.todo.isDeleted==False)&(db.todo.user_id==auth.user_id)
+    todos = db(query).select()
     json = []
     for t in todos:
         json += [{
@@ -33,17 +34,19 @@ def _fetch_all_json():
     return simplejson.dumps(json) 
 
 def _update_todo(c):
-    t = db.todo(uuid=c['uuid'])
+    query = (db.todo.uuid==c['uuid'])&(db.todo.user_id==auth.user_id)
+    t = db(query).select().first()
     c['lastUpdate'] = _to_datetime(c['lastUpdate'])
     if t is None:
         db.todo.insert(**c)
-        logger.info(32, 'item inserted ' + c['text'])
+        logger.log(32, 'item inserted ' + c['text'])
     elif c['lastUpdate'] >= t.lastUpdate:   # in case 'todo' was updated from diff places
         t.update_record(**c)
-        logger.info(32, 'item updated ' + c['text'])
+        logger.log(32, 'item updated ' + c['text'])
 
 def _delete_todo(c):
-    t = db.todo(uuid=c['uuid'])
+    query = (db.todo.uuid==c['uuid'])&(db.todo.user_id==auth.user_id)
+    t = db(query).select().first()
     if not t is None:
         c['lastUpdate'] = _to_datetime(c['lastUpdate'])
         c['isDeleted'] = True
@@ -61,6 +64,7 @@ def _do_merge(cards):
     map(_update_todo, changed_todos)
     map(_delete_todo, deleted_todos)
 
+@auth.requires_login()
 def merge():
     logger.log(32, 'start merging')
     cards = simplejson.loads(request.vars.json);
