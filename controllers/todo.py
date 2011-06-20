@@ -7,6 +7,7 @@ logger = logging.getLogger("[todo]")
 
 @auth.requires_login()
 def index(): 
+    logger.log(32, auth.user_id)
     return dict()
 
 def _to_datetime(s):
