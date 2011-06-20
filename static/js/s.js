@@ -387,8 +387,8 @@ function save() {
     $board.$(CARD).each(function () {
         $card = $(this);
         cards.push({
-            marginLeft: $card.offset().left,
-            marginTop: $card.offset().top,
+            marginLeft: $card.offset().left / document.width,
+            marginTop: $card.offset().top / document.height,
             type: $card.color(),
             text: $card.data(VALUE) || "",
             uuid: $card.data(P_UUID),
@@ -426,7 +426,7 @@ function show_todo() {
     $.each(todos, function (i, card) {
         $(HTML_CARD)
             .aC(card.type || COLORS[5]) // .addClass
-            .css({top: parseInt(card.marginTop), left: parseInt(card.marginLeft)})
+            .css({top: parseFloat(card.marginTop)*document.height, left: parseFloat(card.marginLeft)*document.width})
             .saveText(card.text)
             .data(P_UUID, card.uuid)
             .data(P_STATE, card.state)
