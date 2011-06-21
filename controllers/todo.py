@@ -93,3 +93,13 @@ def _add_new_tips():
 def fetch_tips():
     _add_defaut_tips()
     _add_new_tips()
+
+    query = (db.tip.user_id == auth.user_id) & (db.tip.meta_tip_id == db.meta_tip.id) \
+                & (db.tip.has_viewed == False)
+    fresh_tips = db(query).select()
+
+    json = [{
+        'text': row.meta_tip.text,
+        'created': row.tip.created.strftime("%Y-%m-%d %H:%M:%S"),
+    } for row in fresh_tips]
+    return simplejson.dumps(json)
