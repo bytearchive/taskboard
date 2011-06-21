@@ -70,6 +70,19 @@ def merge():
     logger.log(32, 'start merging')
     cards = simplejson.loads(request.vars.json);
     cards is None or _do_merge(cards)
-    #return db.todo.id.count() > 0 and _fetch_all_json() or dict()
     return _fetch_all_json()
-    
+  
+def _add_defaut_tips():
+    tip_counter = db.tip.id.count()
+    tip_count = db(db.tip.user_id==auth.user_id).select(tip_counter).first()(tip_counter)
+    print tip_count
+    if tip_count == 0: 
+        logger.log(32, 'add defaut tips for user %s' % auth.user.email)
+        default_tips = db(db.meta_tip.created < datetime(3,3,3)).select()
+        print default_tips
+        db.tip.bulk_insert([{'meta_tip_id': t.id} for t in default_tips])
+
+@auth.requires_login()
+def fetch_tips():
+    _add_defaut_tips()
+    #_add_new_tips()
