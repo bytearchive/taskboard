@@ -1,5 +1,0 @@
-state = changed, updated, deleted
-
-changed: new or edited
-updated: when download from server
-deleted: when user trigger delete

@@ -168,9 +168,9 @@ var HTML_CARD = "<section class=card><div class=text>",
         "Every change is immediately saved in your browser",
         "You've already noticed #tags, didn't you?",
         "<i>Ctrl+H</i> makes a</p><h2>Heading</h2><p>and <i>Ctrl+G</i> turns text into a paragraph",
-        0, // pause
-        "It's not a tip... I just had some spare bytes below 10k limit ;)"
+        0
     ],
+    
 
 // Now, these down there can be finally called variables
 // even though some of them don't change much
@@ -191,12 +191,11 @@ var HTML_CARD = "<section class=card><div class=text>",
 
     data; // here is were board data is loaded
 
-// http://en.wikipedia.org/wiki/Truecolor ;)
-TIPS[24] = "Oh, I forgot to tell you about HEX color tags #F5A";
+    // http://en.wikipedia.org/wiki/Truecolor ;)
+    TIPS[24] = "Oh, I forgot to tell you about HEX color tags #F5A";
 
-// little easter egg ;)
-TIPS[42] = "Answer to life, the universe and everything is <b>42</b>";
-
+    // little easter egg ;)
+    TIPS[42] = "Answer to life, the universe and everything is <b>42</b>";
 
 // FUNCTIONS
 // ===========
