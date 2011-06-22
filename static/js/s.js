@@ -437,9 +437,9 @@ function show_todo() {
 }
 
 function fetchTips() {
-    $.get('fetch_tips.json', function(json) {
+    $.get('/todo/tip/fetch.json', function(json) {
         storage.setItem(STORAGE_TIPS_KEY, JSON.stringify(json));         
-        //console.info(json);
+//        console.info(json);
     });
 }
 
