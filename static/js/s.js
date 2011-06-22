@@ -77,6 +77,8 @@ var HTML_CARD = "<section class=card><div class=text>",
 
     STORAGE_KEY = "board",
 
+    STORAGE_TIPS_KEY = 'tips',
+
     TRUE  = !0 + "", // == "true"  //  little inconsistency, but I use "true" only as a string
     FALSE = !1,      // == false   //  and false more as boolean
 
@@ -417,7 +419,7 @@ function merge() {
 }
 
 function show_todo() {
-    //consople.debug($('.card')); 
+    //console.debug($('.card')); 
     $board.$(CARD).each(function () {
         $(this).remove();
     });
@@ -434,11 +436,19 @@ function show_todo() {
     });
 }
 
+function fetchTips() {
+    $.get('fetch_tips.json', function(json) {
+        storage.setItem(STORAGE_TIPS_KEY, JSON.stringify(json));         
+        //console.info(json);
+    });
+}
+
 $(function () { // $(document).ready() -- theoretically not needed, as we don't manipulate the document contents
                 //                        and this script is loaded in the end anyway
 
     $board = $("<section id=board>").to($body);
     merge();
+    fetchTips();
     // loading data from storage (or using some dummy cards)
     //[
     //    { type: COLORS[0], text: "<p><i>Welcome to</i></p><h2>Taskboard 10k</h2>", top: 40, left: 70 },

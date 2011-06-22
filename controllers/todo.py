@@ -99,7 +99,9 @@ def fetch_tips():
     fresh_tips = db(query).select()
 
     json = [{
-        'text': row.meta_tip.text,
-        'created': row.tip.created.strftime("%Y-%m-%d %H:%M:%S"),
+        'id': row.meta_tip.id,
+        'text': row.meta_tip.text
     } for row in fresh_tips]
+
+    print 'how many tips download %d' % len(json)
     return simplejson.dumps(json)
