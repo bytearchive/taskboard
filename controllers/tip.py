@@ -1,4 +1,9 @@
+import logging
+from gluon.contrib import simplejson
+from datetime import datetime
 
+
+logger = logging.getLogger("[todo]")
 
 def _add_defaut_tips():
     tip_count = db(db.tip.user_id==auth.user_id).count()
@@ -25,9 +30,17 @@ def fetch():
                 & (db.tip.has_viewed == False)
     fresh_tips = db(query).select()
     json = [{
-        'id': row.meta_tip.id,
+        'id': row.tip.id,
         'text': row.meta_tip.text
     } for row in fresh_tips]
     return simplejson.dumps(json)
+
+@auth.requires_login()
+def delete():
+    tip_id = int(request.args(0))
+    db(db.tip.id==tip_id).update(has_viewed=True)
+    logger.log(32, 'tip [%d]: deleted' % tip_id)
+    
+    
 
 

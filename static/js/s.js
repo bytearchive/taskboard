@@ -204,7 +204,17 @@ var HTML_CARD = "<section class=card><div class=text>",
 
 // returns tips, one by one
 function tip() {
-    return TIPS[++lastTip] ? "<p>" + TIPS[lastTip] + " #tip</p>" : "";
+    var tips = JSON.parse(storage.getItem(STORAGE_TIPS_KEY));
+    console.info('new tips:');
+    
+    var text = "";
+    if (tips.length > 0) {
+        var tip = tips.shift();
+        storage.setItem(STORAGE_TIPS_KEY, JSON.stringify(tips));
+        $.post('/todo/tip/delete/' + tip.id);
+        text = tip.text;
+    }
+    return text;
 }
 
 // Firefox for some reason didn't work well with execCommand("formatblock",...)
@@ -402,7 +412,7 @@ function save() {
     storage.setItem(STORAGE_KEY, json);
 
     // ++ syncronize client TODOs with server
-    console.debug(json);
+    //console.debug(json);
     merge();
 }
 // And after all these definitions finally something will begin to happen
@@ -411,7 +421,7 @@ function merge() {
     var json = storage.getItem(STORAGE_KEY)
     $.post('merge.json', {'json': json}, function(mergedData){
             console.info('save post done');
-            console.debug(mergedData);
+            //console.debug(mergedData);
 
             storage.setItem(STORAGE_KEY,JSON.stringify(mergedData));
             show_todo();
