@@ -410,25 +410,20 @@ function save() {
 
     var json = JSON.stringify(cards);
     storage.setItem(STORAGE_KEY, json);
-
-    // ++ syncronize client TODOs with server
-    //console.debug(json);
-    merge();
+    $.post('/todo/todo/update', {'json': json});
 }
-// And after all these definitions finally something will begin to happen
 
-function merge() {
+function fetchTodos() {
     var json = storage.getItem(STORAGE_KEY)
-    $.post('merge.json', {'json': json}, function(mergedData){
+    $.post('/todo/todo/fetch.json', {'json': json}, function(mergedData){
             console.info('save post done');
             //console.debug(mergedData);
-
             storage.setItem(STORAGE_KEY,JSON.stringify(mergedData));
-            show_todo();
+            showTodos();
         }, 'json');
 }
 
-function show_todo() {
+function showTodos() {
     //console.debug($('.card')); 
     $board.$(CARD).each(function () {
         $(this).remove();
@@ -455,19 +450,9 @@ function fetchTips() {
 
 $(function () { // $(document).ready() -- theoretically not needed, as we don't manipulate the document contents
                 //                        and this script is loaded in the end anyway
-
     $board = $("<section id=board>").to($body);
-    merge();
+    fetchTodos();
     fetchTips();
-    // loading data from storage (or using some dummy cards)
-    //[
-    //    { type: COLORS[0], text: "<p><i>Welcome to</i></p><h2>Taskboard 10k</h2>", top: 40, left: 70 },
-    //    { type: COLORS[5], text: tip(), top: 120, left: 80 },
-    //    { type: COLORS[1], text: "<p><b>Have fun!</b></p>", top: 180, left: 90 }
-    //];
-
-
-    // building the board
 
     // preparing toolbars
     $actions = buildActions([ ["e", "Edit"], ["c", "Change color"], ["d", "Delete"]]);
