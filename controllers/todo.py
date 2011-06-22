@@ -17,8 +17,27 @@ def _to_datetime(s):
          if len(x) > 0]
     return datetime(*t)
 
+def _insert_welcome_todos():
+    welcome_todos = [ {'text': "<p><i>Welcome to</i></p><h2>Taskboard 10k</h2>", 
+               'type': 'white', 'marginTop': 0.0916, 'marginLeft': 0.1054 },
+        {'text': "Need a new card? Just grab it from a deck on the left",
+               'type': 'yellow', 'marginTop': 0.2122, 'marginLeft': 0.13125 },
+        {'text': "<p><b>Have fun!</b></p>",
+               'type': 'green', 'marginTop': 0.3328, 'marginLeft': 0.2008  }]
+    import uuid
+    for t in welcome_todos:
+        t['uuid'] = uuid.uuid4()
+        db.todo.insert(**t)
+
 def _fetch_all_json():
     logger.log(32, 'fetching items')
+
+    todo_count = db(db.todo.user_id==auth.user_id).count()
+    if todo_count  == 0:
+        logger.log(32, 'insert welcome todos')
+        _insert_welcome_todos()
+
+    logger.log(32, "fetch user\'s todos")
     query = (db.todo.isDeleted==False)&(db.todo.user_id==auth.user_id)
     todos = db(query).select()
     json = []
@@ -68,8 +87,10 @@ def _do_merge(cards):
 @auth.requires_login()
 def merge():
     logger.log(32, 'start merging')
-    cards = simplejson.loads(request.vars.json);
-    cards is None or _do_merge(cards)
+    json = request.vars.json 
+    if not json is None:
+        cards = simplejson.loads(request.vars.json);
+        cards is None or _do_merge(cards)
     return _fetch_all_json()
   
 def _add_defaut_tips():
