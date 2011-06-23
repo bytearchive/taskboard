@@ -1,23 +1,25 @@
 #-*- coding: utf8 -*-
-import logging
 from gluon.contrib import simplejson
 from datetime import datetime
-
-logger = logging.getLogger("[todo]")
+from helper import str_to_datetime
 
 @auth.requires_login()
 def index(): 
-    logger.log(32, auth.user_id)
+    logger.info('welcome user %d', auth.user_id)
     return dict()
 
-def _to_datetime(s):
-    logger.log(32, s)
-    import re
-    t = [int(x) for x in re.findall(r"(.*)-(.*)-([0-9]*) (.*):(.*):([0-9]*)", s)[0] \
-         if len(x) > 0]
-    return datetime(*t)
+@auth.requires_login()
+def fetch():
+    logger.info('user %d login, fetching data', auth.user_id)
+    return __merge(request.vars.json, True)
 
-def _insert_welcome_todos():
+@auth.requires_login()
+def update():
+    logger.info('update data')
+    __merge(request.vars.json)
+
+def __insert_welcome_todos():
+    logger.info('insert welcome todos')
     welcome_todos = [ {'text': "<p><i>Welcome to</i></p><h2>Taskboard 10k</h2>", 
                'type': 'white', 'margin_top': 0.0916, 'margin_left': 0.1054 },
         {'text': "Need a new card? Just grab it from a deck on the left",
@@ -29,15 +31,12 @@ def _insert_welcome_todos():
         t['uuid'] = uuid.uuid4()
         db.todo.insert(**t)
 
-def _fetch_all_json():
-    logger.log(32, 'fetching items')
-
+def __fetch_all_json():
     todo_count = db(db.todo.user_id==auth.user_id).count()
     if todo_count  == 0:
-        logger.log(32, 'insert welcome todos')
-        _insert_welcome_todos()
+        __insert_welcome_todos()
 
-    logger.log(32, "fetch user\'s todos")
+    logger.info("fetch user\'s todos")
     query = (db.todo.deleted==False)&(db.todo.user_id==auth.user_id)
     todos = db(query).select()
     json = []
@@ -53,51 +52,39 @@ def _fetch_all_json():
         }]
     return simplejson.dumps(json) 
 
-def _update_todo(c):
+def __merge(json, isFetch=False):
+    cards = json and simplejson.loads(json);
+    cards is None or __do_merge(cards)
+    return isFetch and __fetch_all_json()
+
+def __update_todo(c):
     query = (db.todo.uuid==c['uuid'])&(db.todo.user_id==auth.user_id)
     t = db(query).select().first()
-    c['last_update'] = _to_datetime(c['last_update'])
+    c['last_update'] = str_to_datetime(c['last_update'])
     if t is None:
         db.todo.insert(**c)
-        logger.log(32, 'item inserted ' + c['text'])
+        logger.info('item inserted ' + c['text'])
     elif c['last_update'] >= t.last_update:   # in case 'todo' was updated from diff places
         t.update_record(**c)
-        logger.log(32, 'item updated ' + c['text'])
+        logger.info('item updated ' + c['text'])
 
-def _delete_todo(c):
+def __delete_todo(c):
     query = (db.todo.uuid==c['uuid'])&(db.todo.user_id==auth.user_id)
     t = db(query).select().first()
     if not t is None:
-        c['last_update'] = _to_datetime(c['last_update'])
+        c['last_update'] = str_to_datetime(c['last_update'])
         c['deleted'] = True
         t.update_record(**c)
-        logger.log(32, 'item delted ' + c['text'])
+        logger.info('item delted ' + c['text'])
 
-def _do_merge(cards):
+def __do_merge(cards):
     cards = filter(lambda c: c.has_key('uuid') and c['state'] != 'updated', cards)
     changed_todos = filter(lambda x: x['state'] == 'changed', cards)
     deleted_todos = filter(lambda x: x['state'] == 'deleted', cards)
 
-    def _delete_state(todo):
+    def delete_state(todo):
         del todo['state']
-    map(_delete_state, cards)
-    map(_update_todo, changed_todos)
-    map(_delete_todo, deleted_todos)
+    map(delete_state, cards)
+    map(__update_todo, changed_todos)
+    map(__delete_todo, deleted_todos)
 
-def _merge(isFetch=False):
-    logger.log(32, 'start merging')
-    json = request.vars.json 
-    cards = json and simplejson.loads(request.vars.json);
-    cards is None or _do_merge(cards)
-    return isFetch and _fetch_all_json()
-
-@auth.requires_login()
-def fetch():
-    logger.log(32, 'user %d login, fetching data')
-    return _merge(True)
-
-@auth.requires_login()
-def update():
-    logger.log(32, 'update data')
-    _merge()
-    
