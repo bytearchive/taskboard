@@ -1,6 +1,5 @@
 from gluon.contrib import simplejson
 from datetime import datetime
-from service import *
 
 @auth.requires_login()
 def fetch():
