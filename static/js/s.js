@@ -65,7 +65,7 @@ var HTML_CARD = "<section class=card><div class=text>",
     VALUE = "value",
     P_UUID = "uuid",
     P_STATE = "state",
-    P_LAST_UPDATE = "lastUpdate",
+    P_LAST_UPDATE = "last_update",
 
     // state of the todo;
     S_CHANGED = "changed",
@@ -398,13 +398,13 @@ function save() {
     $board.$(CARD).each(function () {
         $card = $(this);
         cards.push({
-            marginLeft: $card.offset().left / document.width,
-            marginTop: $card.offset().top / document.height,
+            margin_left: $card.offset().left / document.width,
+            margin_top: $card.offset().top / document.height,
             type: $card.color(),
             text: $card.data(VALUE) || "",
             uuid: $card.data(P_UUID),
             state: $card.data(P_STATE),
-            lastUpdate: $card.data(P_LAST_UPDATE)
+            last_update: $card.data(P_LAST_UPDATE)
         });
     });
 
@@ -432,11 +432,11 @@ function showTodos() {
     $.each(todos, function (i, card) {
         $(HTML_CARD)
             .aC(card.type || COLORS[5]) // .addClass
-            .css({top: parseFloat(card.marginTop)*document.height, left: parseFloat(card.marginLeft)*document.width})
+            .css({top: parseFloat(card.margin_top)*document.height, left: parseFloat(card.margin_left)*document.width})
             .saveText(card.text)
             .data(P_UUID, card.uuid)
             .data(P_STATE, card.state)
-            .data(P_LAST_UPDATE, card.lastUpdate)
+            .data(P_LAST_UPDATE, card.last_update)
             .to($board);
     });
 }

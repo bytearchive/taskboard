@@ -19,11 +19,11 @@ def _to_datetime(s):
 
 def _insert_welcome_todos():
     welcome_todos = [ {'text': "<p><i>Welcome to</i></p><h2>Taskboard 10k</h2>", 
-               'type': 'white', 'marginTop': 0.0916, 'marginLeft': 0.1054 },
+               'type': 'white', 'margin_top': 0.0916, 'margin_left': 0.1054 },
         {'text': "Need a new card? Just grab it from a deck on the left",
-               'type': 'yellow', 'marginTop': 0.2122, 'marginLeft': 0.13125 },
+               'type': 'yellow', 'margin_top': 0.2122, 'margin_left': 0.13125 },
         {'text': "<p><b>Have fun!</b></p>",
-               'type': 'green', 'marginTop': 0.3328, 'marginLeft': 0.2008  }]
+               'type': 'green', 'margin_top': 0.3328, 'margin_left': 0.2008  }]
     import uuid
     for t in welcome_todos:
         t['uuid'] = uuid.uuid4()
@@ -38,17 +38,17 @@ def _fetch_all_json():
         _insert_welcome_todos()
 
     logger.log(32, "fetch user\'s todos")
-    query = (db.todo.isDeleted==False)&(db.todo.user_id==auth.user_id)
+    query = (db.todo.deleted==False)&(db.todo.user_id==auth.user_id)
     todos = db(query).select()
     json = []
     for t in todos:
         json += [{
             'uuid': t.uuid,
-            'lastUpdate': t.lastUpdate.strftime("%Y-%m-%d %H:%M:%S"),
+            'last_update': t.last_update.strftime("%Y-%m-%d %H:%M:%S"),
             'state': 'updated',
             'type': t.type,
-            'marginTop': t.marginTop,
-            'marginLeft': t.marginLeft,
+            'margin_top': t.margin_top,
+            'margin_left': t.margin_left,
             'text': t.text
         }]
     return simplejson.dumps(json) 
@@ -56,11 +56,11 @@ def _fetch_all_json():
 def _update_todo(c):
     query = (db.todo.uuid==c['uuid'])&(db.todo.user_id==auth.user_id)
     t = db(query).select().first()
-    c['lastUpdate'] = _to_datetime(c['lastUpdate'])
+    c['last_update'] = _to_datetime(c['last_update'])
     if t is None:
         db.todo.insert(**c)
         logger.log(32, 'item inserted ' + c['text'])
-    elif c['lastUpdate'] >= t.lastUpdate:   # in case 'todo' was updated from diff places
+    elif c['last_update'] >= t.last_update:   # in case 'todo' was updated from diff places
         t.update_record(**c)
         logger.log(32, 'item updated ' + c['text'])
 
@@ -68,8 +68,8 @@ def _delete_todo(c):
     query = (db.todo.uuid==c['uuid'])&(db.todo.user_id==auth.user_id)
     t = db(query).select().first()
     if not t is None:
-        c['lastUpdate'] = _to_datetime(c['lastUpdate'])
-        c['isDeleted'] = True
+        c['last_update'] = _to_datetime(c['last_update'])
+        c['deleted'] = True
         t.update_record(**c)
         logger.log(32, 'item delted ' + c['text'])
 
