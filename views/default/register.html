@@ -3,14 +3,14 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Sign up</title>
-        <link rel="stylesheet" type="text/css" href="{{=URL('welcome', 'static/css', 'main.css')}}">
+        <link rel="stylesheet" type="text/css" href="{{=URL('static/css', 'main.css')}}">
     </head>
     <body class="signup">
     <div id="wrapper">
         <div id="header" class="left">
-            <h1>Authentication</h1>
+            <h1>Welcome to Todo's World</h1>
         </div>
-	<div id="fullContainer" updateurl="/app/12/ajax/ZVFMOwa8xXDUDzgW4UJ08M/0.0.11.1.3">
+	<div id="fullContainer">
 	<div id="container" class="internal">
 		<div id="topcorners"><div class="cleft"></div><div class="cright"></div></div>
 		<div id="top">
@@ -66,7 +66,7 @@
 </div>
     <div id="footer">
         <p>
-            <a href="#">Home</a> <span>|</span>
+            <a href="{{=URL('index')}}">Home</a> <span>|</span>
             <a href="https://mail.google.com/mail/?extsrc=mailto&url=mailto%3" target="_blank" rel="noreferrer">Contact Us</a>
         </p>
         <p>Copyright © 2011  All rights reserved.</p>

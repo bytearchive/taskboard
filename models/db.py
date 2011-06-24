@@ -12,6 +12,7 @@ auth.settings.registration_requires_approval = False
 
 auth.settings.login_next = URL('todo', 'index')
 auth.settings.logout_next = URL('index')
+auth.settings.register_next = URL('todo', 'index')
 
 db.define_table('todo',
                 Field('uuid', 'string'),
