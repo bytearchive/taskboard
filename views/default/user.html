@@ -1,19 +1,62 @@
-{{extend 'layout.html'}}
-<h2>{{=T( request.args(0).replace('_',' ').capitalize() )}}</h2>
-<div id="web2py_user_form">
-{{=form}}
-{{if request.args(0)=='login':}}
-{{if not 'register' in auth.settings.actions_disabled:}}
-<br/><a href="{{=URL(r=request,args='register')}}">register</a>
-{{pass}}
-{{if not 'request_reset_password' in auth.settings.actions_disabled:}}
-<br/><a href="{{=URL(r=request,args='request_reset_password')}}">lost password</a>
-{{pass}}
-{{pass}}
-</div>
-
-<script language="javascript">
-<!--
- jQuery("#web2py_user_form input:visible:enabled:first").focus();
-//-->
-</script> 
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <title>User - Login</title>
+        <link rel="stylesheet" type="text/css" href="{{=URL('welcome', 'static/css', 'main.css')}}">
+    </head>
+    <body class="small login">
+        <div id="wrapper">
+            <div id="header" class="center">
+                <h1>Welcome, {{=auth.user == None and 'Guest' or "%s %s" % (auth.user.first_name, auth.user.last_name)}}</h1>
+            </div>
+            {{if request.args(0)=='login' and auth.user is None:}}
+            <div class="container">
+                <div id="topcorners">
+                    <div class="cleft"></div>
+                    <div class="cright"></div>
+                </div>
+                <div id="content">
+                    <!--<form enctype="multipart/form-data" method="post" action="">-->
+                    {{=form.custom.begin}}
+					<table class="login" style="margin-left: auto; margin-right: auto;">
+                        <tbody>
+                            <tr class="inputfiled">
+                                <td><p class="mtop0 mbottom025"><strong><label for="email">Email</label></strong></p>
+                                    {{=form.custom.widget.email}} </td>
+                            </tr>
+                            <tr class="inputfiled">
+                            <td><p class="mtop05 mbottom025"><strong><label for="password">Password</label></strong></p>
+                                    {{=form.custom.widget.password}}
+                                </td>
+                            </tr>
+						<tr>
+							<td>
+							<p class="mtop015 mbottom0"><a href="#">Forgot password?</a>
+                            <span style="padding: 0 3px;">|</span><a href="{{=URL('register')}}">Sign up!</a>
+							</p></td> 
+						</tr>
+						<tr>
+                            <td><p class="mtop015 mbottom0" >
+                                <input type="checkbox" name="remember" id="auth_user_remember" tabindex="3"> 
+                                <label for="rememberMe">Remember me</label></p></td>
+						</tr>
+						<tr>
+                            <td style="padding-top: 10px;"><input class="bprimarypub80" style="float: right" type="submit" tabindex="4" value="Login"></td>
+						</tr>
+                    </tbody></table>
+                {{=form.custom.end}}
+                    <!--</form>-->
+                </div>
+                <div id="bottomcorners">
+                    <div class="cleft"></div>
+                    <div class="cright"></div>
+                </div>
+                {{pass}}
+            </div>
+        </div>
+    	<div id="footer">
+            <!--<p>Copyright © 2011 <a href="#">auth</a>. All rights reserved.</p> -->
+        </div>
+    </body>
+</html>

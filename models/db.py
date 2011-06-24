@@ -1,35 +1,17 @@
 # -*- coding: utf-8 -*-
 from datetime import datetime, timedelta
 
-db = DAL('mysql://todoer:todoer@localhost/todo')
-#db = DAL('sqlite://storage.sqlite')
+db = DAL('sqlite://storage.sqlite')
 
-# by default give a view/generic.extension to all actions from localhost
-# none otherwise. a pattern can be 'controller/function.extension'
-response.generic_patterns = ['*'] if request.is_local else []
-
-from gluon.tools import Mail, Auth, Crud, Service, PluginManager, prettydate
-mail = Mail()                                  # mailer
-auth = Auth(db)                                # authentication/authorization
-crud = Crud(db)                                # for CRUD helpers using auth
-service = Service()                            # for json, xml, jsonrpc, xmlrpc, amfrpc
-plugins = PluginManager()                      # for configuring plugins
-
-mail.settings.server = 'logging' or 'smtp.gmail.com:587'  # your SMTP server
-mail.settings.sender = 'you@gmail.com'         # your email
-mail.settings.login = 'username:password'      # your credentials or None
-
-auth.settings.hmac_key = 'sha512:b868ae2b-9b73-4541-a54b-ce5e1a50f3b9'   # before define_tables()
-auth.define_tables(migrate=False,fake_migrate=True) 
-#auth.define_tables()                          
-auth.settings.mailer = mail                    # for user email verification
+from gluon.tools import Auth
+auth = Auth(db)  
+auth.settings.hmac_key = 'sha512:b868ae2b-9b73-4541-a54b-ce5e1a50f3b9' 
+auth.define_tables()                          
 auth.settings.registration_requires_verification = False
 auth.settings.registration_requires_approval = False
-auth.messages.verify_email = 'Click on the link http://'+request.env.http_host+URL('default','user',args=['verify_email'])+'/%(key)s to verify your email'
-auth.settings.reset_password_requires_verification = True
-auth.messages.reset_password = 'Click on the link http://'+request.env.http_host+URL('default','user',args=['reset_password'])+'/%(key)s to reset your password'
 
-crud.settings.auth = None        # =auth to enforce authorization on crud
+auth.settings.login_next = URL('todo', 'index')
+auth.settings.logout_next = URL('index')
 
 db.define_table('todo',
                 Field('uuid', 'string'),
@@ -53,7 +35,7 @@ db.define_table('tip',
                 Field('meta_tip_id', db.meta_tip),
                 Field('user_id', db.auth_user, default=auth.user_id),
                 Field('has_viewed', 'boolean', default=False),
-                Field('created', 'datetime', default=request.now), migrate=False)
+                Field('created', 'datetime', default=request.now))
 
 db.todo.user_id.represent = lambda user_id: db.auth_user(user_id).email
 db.tip.user_id.represent = lambda user_id: db.auth_user(user_id).email
@@ -76,4 +58,3 @@ if meta_tip_count == 0:
 import logging
 logger = logging.getLogger("[todo]")
 logger.setLevel(0)
-#print  logging.DEBUG, logging.INFO,logging.WARNING, logging.ERROR, logging.CRITICAL
