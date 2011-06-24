@@ -1,6 +1,12 @@
 <meta charset=utf-8>
 <title>Taskboard 10k</title>
 <link rel=stylesheet href="{{=URL('todo', 'static', 'css/s.css')}}">
+<div id="user-panel">
+<p>
+welcome, {{="%s %s" % (auth.user.first_name, auth.user.last_name)}} | <a href={{=URL('todo', 'default', 'user/logout')}}>Logout</a>
+<p>
+</div>
+
 <footer>
 <p>
     Taskboard 10k by <a href=http://twitter.com/bartaz>@bartaz</a>.

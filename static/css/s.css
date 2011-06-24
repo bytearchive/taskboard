@@ -283,6 +283,17 @@ menu .d { background-position: 2px -120px }
  * ========
  */
 
+#user-panel {
+    position: fixed;
+    top: 0;
+    right: 0;
+    padding: 5px;
+    font-size: .7em;
+    opacity: .6;
+}
+
+#user-panel:hover { opacity: 1 }
+
 footer {
     position: fixed;
     bottom: 0; right: 0;
