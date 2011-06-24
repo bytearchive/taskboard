@@ -10,3 +10,7 @@ doc.txt
 /cache/*
 /uploads/*
 /databases/*
+/languages/*
+/cron/*
+/private/*
+/uploads/*
