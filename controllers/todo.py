@@ -10,6 +10,7 @@ def index():
 
 @auth.requires_login()
 def fetch():
+    print logger
     logger.info('user %d login, fetching data', auth.user_id)
     return __merge(request.vars.json, True)
 

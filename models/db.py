@@ -32,14 +32,13 @@ db.define_table('meta_tip',
                 Field('created', 'datetime', default=request.now),
                 format=lambda x: x.text or '[empty tip]')
 
-db.define_table('tip',
+db.define_table('viewed_tip',
                 Field('meta_tip_id', db.meta_tip),
                 Field('user_id', db.auth_user, default=auth.user_id),
-                Field('has_viewed', 'boolean', default=False),
                 Field('created', 'datetime', default=request.now))
 
 db.todo.user_id.represent = lambda user_id: db.auth_user(user_id).email
-db.tip.user_id.represent = lambda user_id: db.auth_user(user_id).email
+db.viewed_tip.user_id.represent = lambda user_id: db.auth_user(user_id).email
 
 
 meta_tip_count = db(db.meta_tip.id > 0).count()
@@ -53,9 +52,9 @@ if meta_tip_count == 0:
         "Just guess what <i>ESC</i> and <i>Ctrl+Enter</i> do", 
         "<i>Ctrl+H</i> makes a</p><h2>Heading</h2><p>and <i>Ctrl+G</i> turns text into a paragraph",
         "Oh, I forgot to tell you about HEX color tags #F5A"]
-    db.meta_tip.bulk_insert([{'text': t, 'expired_date': datetime(2, 2, 2)} for t in META_TIPS])
+    db.meta_tip.bulk_insert([{'text': t, 'expired_date': datetime(9999, 1, 1)} for t in META_TIPS])
 
 
 import logging
 logger = logging.getLogger("[todo]")
-logger.setLevel(0)
+logger.setLevel(-1)
