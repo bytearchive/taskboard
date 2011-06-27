@@ -96,9 +96,12 @@ var HTML_CARD = "<section class=card><div class=text>",
         // clears board by removing saved data & reloads the page
         r: function () {
             if (confirm("Are you sure you want to clear all saved data?")) {
-                storage.removeItem(STORAGE_KEY); // .clear() would be fine too, but I don't want to remove
-                                                 // data of other demos on 10k apart domain :)
-                location.reload();
+                $board.$(CARD).each(function () {
+                    $card = $(this);
+                    $card.data(P_STATE, S_DELETED);
+                    $card.fadeOut();
+                });
+                save();
             }
         },
 
@@ -462,6 +465,9 @@ $(function () { // $(document).ready() -- theoretically not needed, as we don't 
                              ["h", "Heading (Ctrl+H)"],
                              ["p", "Paragraph (Ctrl+G)"]]).aC(EDIT); // .addClass
 
+   buildActions([["r", "Clear board"]]).to($body);
+
+
     // preparing deck with new cards
     $deck = $("<aside id=deck>").to($body)
         // on hover cards in deck are animated to encourage users to take them :)
@@ -475,7 +481,6 @@ $(function () { // $(document).ready() -- theoretically not needed, as we don't 
             // adding new cards from deck
             if (!$body.hC(EDIT) && !$body.hC(MARK)) { // .hasClass
 
-                // [TODO] refacter a createToDo() function
                 var $card = $(this);
                 $card.clone()          // clone deck card and add it to the board
                     .pick().aC(DRAG)
