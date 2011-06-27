@@ -208,7 +208,7 @@ var HTML_CARD = "<section class=card><div class=text>",
 // returns tips, one by one
 function tip() {
     var tips = JSON.parse(storage.getItem(STORAGE_TIPS_KEY));
-    console.info('new tips:');
+//    console.info('new tips:');
     
     var text = "";
     if (tips.length > 0) {
@@ -285,7 +285,7 @@ function closeEdit(cancel) {
 
     $body.add($card.drop()).rC(EDIT); // .removeClass
     value = cancel ? $card.data(VALUE) : $card.$(TEXT).html();
-    console.debug('' + cancel);
+    //console.debug('' + cancel);
     if (!cancel) {
         markCardChanged($card);
     }
@@ -419,7 +419,7 @@ function save() {
 function fetchTodos() {
     var json = storage.getItem(STORAGE_KEY)
     $.post('/todo/todo/fetch.json', {'json': json}, function(mergedData){
-            console.info('save post done');
+            //console.info('save post done');
             //console.debug(mergedData);
             storage.setItem(STORAGE_KEY,JSON.stringify(mergedData));
             showTodos();
