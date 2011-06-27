@@ -130,7 +130,7 @@ var HTML_CARD = "<section class=card><div class=text>",
         // delete
         d: function ($card) {
             $card.fadeOut(function () {
-                //$card.remove();
+                $actions.detach();
                 $card.data(P_STATE, S_DELETED);
                 save();
             });
@@ -579,11 +579,6 @@ $(function () { // $(document).ready() -- theoretically not needed, as we don't 
         .dlg(CARD, HOVER, function (event) {
             if (R_MOUSEIN.test(event.type)) {
                 $actions.to($(this));
-                $actions.undelegate(ACTION, CLICK);
-                $actions.dlg(ACTION, CLICK, function (e) {
-                    ACTIONS[this.className]($(this).up(CARD)); // [TODO] launch action based on class name
-                    return FALSE;
-                });
             } else {
                 $actions.detach();
             }
