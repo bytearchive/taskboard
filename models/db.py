@@ -3,7 +3,7 @@ from datetime import datetime, timedelta
 
 db = DAL('sqlite://storage.sqlite')
 
-from gluon.tools import Auth
+from gluon.tools import Auth, Mail
 auth = Auth(db)  
 auth.settings.hmac_key = 'sha512:b868ae2b-9b73-4541-a54b-ce5e1a50f3b9' 
 auth.define_tables()                          
@@ -13,6 +13,13 @@ auth.settings.registration_requires_approval = False
 auth.settings.login_next = URL('todo', 'index')
 auth.settings.logout_next = URL('index')
 auth.settings.register_next = URL('todo', 'index')
+
+mail = Mail()
+mail.settings.server = 'logging' or 'smtp.gmail.com:587'  # your SMTP server
+mail.settings.sender = 'some@mail.com'
+mail.settings.login = 'username:passwd'
+auth.settings.mailer = mail
+
 
 db.define_table('todo',
                 Field('uuid', 'string'),
@@ -54,7 +61,16 @@ if meta_tip_count == 0:
         "Oh, I forgot to tell you about HEX color tags #F5A"]
     db.meta_tip.bulk_insert([{'text': t, 'expired_date': datetime(9999, 1, 1)} for t in META_TIPS])
 
-
 import logging
 logger = logging.getLogger("[todo]")
 logger.setLevel(-1)
+
+def user_registration_notification(form):
+    user = auth.user
+    email_flag = mail.send(to=['aonther@mail.com'],
+        subject='New User Registered',
+        message='Hi, There is a new user named: %s %s, registerd, Congratuaion' % (user.first_name, \
+              user.last_name))
+    logger.info('new user email sent: %s' % str(email_flag))
+auth.settings.register_onaccept = user_registration_notification
+
