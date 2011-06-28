@@ -45,7 +45,7 @@ ul, li { list-style: none }
 
 section, aside, menu, footer { display: block } /* -- make sure HTML5 elements are blocks */
 
-body { font-family: georgia, times, serif; }
+body { font-family: georgia, times, "Microsoft YaHei", "SimYou", "STHeiti" serif; }
 
 a { outline: 0; color: #05C; }
 
