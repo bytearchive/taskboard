@@ -59,33 +59,34 @@ def __merge(json, isFetch=False):
     return isFetch and __fetch_all_json()
 
 def __update_todo(c):
-    query = (db.todo.uuid==c['uuid'])&(db.todo.user_id==auth.user_id)
+    query = (db.todo.uuid==c['uuid'])
     t = db(query).select().first()
-    c['last_update'] = str_to_datetime(c['last_update'])
     if t is None:
         db.todo.insert(**c)
-        logger.info('item inserted ' + c['text'])
+        logger.info('item inserted '+ c['uuid'])
+    elif t.user_id != auth.user_id:   # not current user's 'todo'
+        return 
     elif c['last_update'] >= t.last_update:   # in case 'todo' was updated from diff places
         t.update_record(**c)
-        logger.info('item updated ' + c['text'])
+        logger.info('item updated ' + c['uuid'])
 
 def __delete_todo(c):
     query = (db.todo.uuid==c['uuid'])&(db.todo.user_id==auth.user_id)
     t = db(query).select().first()
     if not t is None:
-        c['last_update'] = str_to_datetime(c['last_update'])
         c['deleted'] = True
         t.update_record(**c)
-        logger.info('item delted ' + c['text'])
+        logger.info('item delted ' + c['uuid'])
 
 def __do_merge(cards):
     cards = filter(lambda c: c.has_key('uuid') and c['state'] != 'updated', cards)
     changed_todos = filter(lambda x: x['state'] == 'changed', cards)
     deleted_todos = filter(lambda x: x['state'] == 'deleted', cards)
 
-    def delete_state(todo):
+    def _preprocess(todo):
         del todo['state']
-    map(delete_state, cards)
+        todo['last_update'] = str_to_datetime(todo['last_update'])
+    map(_preprocess, cards)
     map(__update_todo, changed_todos)
     map(__delete_todo, deleted_todos)
 
