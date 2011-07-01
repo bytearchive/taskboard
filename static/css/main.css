@@ -1,55 +1,3 @@
-body {
-    padding: 0;
-    margin: 0;
-    background: #e2e2cd url(../images/body_bg_01.gif) top left repeat-x;
-    text-align: center;
-    font-family: Helvetica, Arial, sans-serif;
-    margin-bottom: 2em;
-}
-
-div, ul, li, h1, h2, h3, h4, h5 {
-    margin: 0;
-    padding: 0;
-}
-
-a {
-    color: #fff;
-    text-decoration: none;
-}
-a:hover {
-    text-decoration: underline;
-}
-
-h1 {
-    font-weight: normal;
-    text-align: center;
-}
-div.clear {
-    clear: both;
-    height: 1px;
-    line-height: 1px;
-    font-size: 1px;
-}
-
-/* ***************************
-       Layout
-**************************** */
-div#wrapper {
-    text-align: left;
-    margin: 0 auto;
-    width: 960px;
-}
-
-/* ***************************
-       Header
-**************************** */
-
-div#header {
-    position: relative;
-    height: 1%;
-    margin-bottom: 20px;
-    padding: 30px 30px 0 30px;
-}
 div#header.center h1 {
     text-align: center;
     color: #bbbbbb;
@@ -58,63 +6,125 @@ div#header.left h1 {
     text-align: left;
     color: #bbbbbb;
 }
-div#header h1 a, div#header h1 span {
-    display: block;
-    width: 270px;
-    padding-top: 10px;
-    text-indent: -9999px;
-    overflow: hidden;
-    outline: none;
+body {
+padding: 0;
+margin: 0;
+text-align: center;
+font-family: Helvetica, Arial, sans-serif;
+margin-bottom: 2em;
 }
+
+div, ul, li, h1, h2, h3, h4, h5 {
+margin: 0;
+padding: 0;
+}
+
+a {
+color: #fff;
+text-decoration: none;
+}
+
+a:hover {
+text-decoration: underline;
+}
+
+h1 {
+font-weight: normal;
+text-align: center;
+}
+
+div.clear {
+clear: both;
+height: 1px;
+line-height: 1px;
+font-size: 1px;
+}
+
+/* ***************************
+       Layout
+**************************** */
+
+div#wrapper {
+text-align: left;
+margin: 0 auto;
+width: 960px;
+}
+
+
+/* ***************************
+       Header
+**************************** */
+
+div#header {
+position: relative;
+height: 1%;
+margin-bottom: 20px;
+padding: 30px 30px 0 30px;
+}
+
+div#header h1 {
+text-align: left;
+}
+div#header h1 a, div#header h1 span {
+background: url(../images/taskboard.png) bottom left no-repeat;
+display: block;
+width: 360;
+padding-top: 80px;
+text-indent: -9999px;
+overflow: hidden;
+outline: none;
+}
+
 div#header ul {
-    position: absolute;
-    right: 30px;
-    bottom: -5px;
+position: absolute;
+right: 30px;
+bottom: -5px;
 }
 div#header ul li {
-    float: left;
-    list-style: none;
-    font-weight: bold;
+float: left;
+list-style: none;
+font-weight: bold;
 }
 div#header ul li a {
-    color: #666;
-    display: block;
-    padding: 7px 7px 7px 7px;
-    margin: 0 0.5em;
-    font-size: 14px;
-    outline: none;
-    font-family: Arial, sans-serif; /* fixes ff mac 1px helvetica line height problem > http://archivist.incutio.com/viewlist/css-discuss/96327 */
+color: #666;
+display: block;
+padding: 7px 7px 7px 7px;
+margin: 0 0.5em;
+font-size: 14px;
+outline: none;
+font-family: Arial, sans-serif; /* fixes ff mac 1px helvetica line height problem > http://archivist.incutio.com/viewlist/css-discuss/96327 */
 }
 div#header ul li a:hover {
-    text-decoration: none;
-    background: #ececde;
+text-decoration: none;
+background: #ececde;
 }
 div#header ul li a:hover span {
-    border-bottom: 1px dotted #999;
+border-bottom: 1px dotted #999;
 }
 
 div#header ul li.login {
-    margin-left: 0.85em;
+margin-left: 0.85em;
 }
 div#header ul li.login a {
-    display: block;
-    color: #fff;
-    font-size: 14px;
-    background: url(../images/login_01.gif) bottom left no-repeat;
-    margin: 0;
-    text-align: center;
-    cursor: pointer;
-    width: 66px;
-    padding: 6px 0 6px 0; 
+display: block;
+color: #fff;
+font-size: 14px;
+background: url(../images/login_01.gif) bottom left no-repeat;
+margin: 0;
+text-align: center;
+cursor: pointer;
+width: 66px;
+padding: 6px 0 6px 0; 
 }
 div#header ul li.login a:hover {
-    background: url(../images/login_01.gif) bottom left no-repeat;
+background: url(../images/login_01.gif) bottom left no-repeat;
 }
 div#header ul li.login a:hover span {
-    border: none;
+border: none;
 }
+
 div#header ul li.selected a span {
-    border-bottom: 1px dotted #666;
+border-bottom: 1px dotted #666;
 }
 
 /* ***************************
@@ -213,11 +223,11 @@ color: #515348;
 font-size: 76%;
 line-height: 1.6em;
 height: 1%;
-background: #f5f5ef;
+background: #e6e6d3;
 }
 
 body.home div#content {
-background: #f5f5ef url(../images/content_grad_01.gif) top left repeat-x;
+background: #e6e6d3 url(../images/content_grad_01.gif) top left repeat-x;
 }
 
 
@@ -242,7 +252,7 @@ div#topcorners div.cleft {
 position: absolute;
 width: 10px;
 height: 10px;
-background: #333 url(../images/content_corner_sprite2_01.gif) 0px 0px no-repeat;
+background: #333 url(../images/box_corner.png) 0px 0px no-repeat;
 top: 0;
 left: -10px;
 }
@@ -250,13 +260,13 @@ div#topcorners div.cright {
 position: absolute;
 width: 10px;
 height: 10px;
-background: #333 url(../images/content_corner_sprite2_01.gif) -12px 0px no-repeat;
+background: #333 url(../images/box_corner.png) -12px 0px no-repeat;
 top: 0;
 right: -10px;
 }
 
 div#bottomcorners {
-background: #f5f5ef;
+background: #e6e6d3;
 height: 10px;
 width: 940px;
 margin: 0 auto;
@@ -266,7 +276,7 @@ div#bottomcorners div.cleft {
 position: absolute;
 width: 10px;
 height: 10px;
-background: url(../images/content_corner_sprite2_01.gif) 0px -12px no-repeat;
+background: url(../images/box_corner.png) 0px -12px no-repeat;
 top: 0;
 left: -10px;
 }
@@ -274,7 +284,7 @@ div#bottomcorners div.cright {
 position: absolute;
 width: 10px;
 height: 10px;
-background: url(../images/content_corner_sprite2_01.gif) -12px -12px no-repeat;
+background: url(../images/box_corner.png) -12px -12px no-repeat;
 top: 0;
 right: -10px;
 }
@@ -393,7 +403,7 @@ margin: 20px 0 25px 0;
 padding: 0px 5px 0 0;
 /* border-bottom: 1px solid #E3E3CF; */
 border-top: 3px solid #E3E3CF;
-background: #f5f5ef url(../images/content_grad_02.gif) 10px -60px repeat-x;
+background: #e6e6d3 url(../images/content_grad_02.gif) 10px -60px repeat-x;
 }
 
 div#content div.groups {
@@ -620,7 +630,7 @@ color: #aa8;
 
 div.internal div#top {
 padding: 10px 30px 20px 30px;
-background: #f5f5ef url(../images/grad_top_internal_01.gif) bottom left repeat-x;
+background: #e6e6d3 url(../images/grad_top_internal_01.gif) bottom left repeat-x;
 border-bottom: 1px solid #E8E8D7;
 }
 
@@ -650,7 +660,7 @@ div.internal div#topcorners div.cleft {
 position: absolute;
 width: 10px;
 height: 10px;
-background: url(../images/content_corner_sprite3_01.gif) 0px 0px no-repeat;
+background: url(../images/content_corner_sprite1_01.gif) 0px 0px no-repeat;
 top: 0;
 left: -10px;
 }
@@ -658,7 +668,7 @@ div.internal div#topcorners div.cright {
 position: absolute;
 width: 10px;
 height: 10px;
-background: url(../images/content_corner_sprite3_01.gif) -12px 0px no-repeat;
+background: url(../images/content_corner_sprite1_01.gif) -12px 0px no-repeat;
 top: 0;
 right: -10px;
 }
@@ -707,7 +717,7 @@ margin: 1em 3em;
 **************************** */
 
 div.sidebar div#content {
-background: #f5f5ef url(../images/menu_bg_01.gif) top left repeat-y;
+background: #e6e6d3 url(../images/menu_bg_01.gif) top left repeat-y;
 padding-left: 0;
 }
 
@@ -744,7 +754,7 @@ div.sidebar div#sidebar ul li a:hover span {
 border-bottom: 1px dotted #9ab680;
 }
 div.sidebar div#sidebar ul li.selected a {
-background: #f5f5ef;
+background: #e6e6d3;
 }
 
 div#main {
@@ -752,10 +762,10 @@ padding-left: 202px;
 }
 
 div.sidebar div#topcorners {
-background: #f5f5ef url(../images/menu_bg_bottom_01.gif) top left repeat-y;	
+background: #e6e6d3 url(../images/menu_bg_bottom_01.gif) top left repeat-y;	
 }
 div.sidebar div#bottomcorners {
-background: #f5f5ef url(../images/menu_bg_bottom_01.gif) top left repeat-y;	
+background: #e6e6d3 url(../images/menu_bg_bottom_01.gif) top left repeat-y;	
 }
 
 /* ***************************
@@ -825,10 +835,12 @@ body.small div#header h1 {
 margin: 0 30px;
 }
 body.small div#header h1 a {
-padding-top: 30px;
+background: url(../images/taskboard.png) bottom center no-repeat;
+padding-top: 80px;
 }
 body.small div#header h1 span {
-padding-top: 30px;
+background: url(../images/taskboard.png) bottom center no-repeat;
+padding-top: 60px;
 }
 body.small div#content {
 padding: 15px 30px 10px 30px;
@@ -842,7 +854,7 @@ width: 240px;
 
 
 body.small div#topcorners {
-background: #f5f5ef;
+background: #e6e6d3;
 height: 10px;
 margin: 0 auto;
 position: relative;
@@ -851,7 +863,7 @@ body.small div#topcorners div.cleft {
 position: absolute;
 width: 10px;
 height: 10px;
-background: url(../images/content_corner_sprite1_01.gif) 0px 0px no-repeat;
+background: url(../images/box_corner.png) 0px 0px no-repeat;
 top: 0;
 left: -10px;
 }
@@ -859,13 +871,13 @@ body.small div#topcorners div.cright {
 position: absolute;
 width: 10px;
 height: 10px;
-background: url(../images/content_corner_sprite1_01.gif) -12px 0px no-repeat;
+background: url(../images/box_corner.png) -12px 0px no-repeat;
 top: 0;
 right: -10px;
 }
 
 body.small div#bottomcorners {
-background: #f5f5ef;
+background: #e6e6d3;
 height: 10px;
 margin: 0 auto;
 position: relative;
@@ -874,7 +886,7 @@ body.small div#bottomcorners div.cleft {
 position: absolute;
 width: 10px;
 height: 10px;
-background: url(../images/content_corner_sprite1_01.gif) 0px -12px no-repeat;
+background: url(../images/box_corner.png) 0px -12px no-repeat;
 top: 0;
 left: -10px;
 }
@@ -882,7 +894,7 @@ body.small div#bottomcorners div.cright {
 position: absolute;
 width: 10px;
 height: 10px;
-background: url(../images/content_corner_sprite1_01.gif) -12px -12px no-repeat;
+background: url(../images/box_corner.png) -12px -12px no-repeat;
 top: 0;
 right: -10px;
 }
@@ -946,7 +958,7 @@ text-align: right;
 }
 table.login td {
 }
-table.login .inputfiled input {
+table.login input.inputtext {
 width: 250px;
 color: #515348;
 }
@@ -1077,7 +1089,6 @@ padding: 3px;
 .mtop1 { margin-top: 1em !important; }
 .mtop05 { margin-top: 0.5em !important; }
 .mtop025 { margin-top: 0.25em !important; }
-.mtop015 { margin-top: 0.15em !important; }
 .mtop0 { margin-top: 0 !important; }
 .mbottom3 { margin-bottom: 3em !important; }
 .mbottom2 { margin-bottom: 2em !important; }
@@ -1155,7 +1166,7 @@ border-bottom-width: 1px;
 border-left-width: 1px;
 border-right-width: 1px;
 border-style: solid;
-border-color: #f5f5ef;
+border-color: #e6e6d3;
 }
 table.pricing {
 border-width: 1px;
@@ -1266,7 +1277,7 @@ border-width: 1px;
 table.annual_pricing, table.annual_pricing th, table.annual_pricing td {
 border-width: 1px;
 border-style: solid;
-border-color: #f5f5ef;
+border-color: #e6e6d3;
 }
 
 table.annual_pricing th {
@@ -1397,7 +1408,7 @@ border-bottom-width: 1px;
 border-left-width: 1px;
 border-right-width: 1px;
 border-style: solid;
-border-color: #f5f5ef;
+border-color: #e6e6d3;
 }
 table.pricing_complete {
 border-top-width: 4px;
@@ -1448,7 +1459,7 @@ table.pricing_complete th.first_col {
 background: #333 url(../images/pricing_corner_left_01.gif) top left no-repeat;
 }
 table.pricing_complete th.last_col {
-background: #333 url(../images/pricing_corner_right_01.gif) top right no-repeat;
+background: #333 url(../_mages/pricing_corner_right_01.gif) top right no-repeat;
 }
 table.pricing_complete tbody td {
 width: 18%;
@@ -1609,11 +1620,13 @@ padding-bottom: 3px !important;
 
 div.error {
 margin: 1em 0;
-background: #ff7474;
+background: #a62b25;
+border-top: 2px solid #db6e3c;
+border-bottom: 2px solid #db6e3c;
 padding: 5px 10px;
+color: #f2dec4;
 color: #fff;
 font-weight: bold;
-float: right;
 }
 div.error p {
 margin: 5px 0;
@@ -1629,8 +1642,9 @@ margin: 0;
 padding: 0;
 }
 .signup div.error {
-margin-bottom: 5px;
-margin-top: 1px;
+width: 575px !important;
+margin-bottom: 20px;
+margin-top: -5px;
 }
 p.error {
 margin: 1px 0 5px 0 !important;

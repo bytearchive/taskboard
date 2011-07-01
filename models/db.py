@@ -11,7 +11,7 @@ auth.settings.registration_requires_verification = False
 auth.settings.registration_requires_approval = False
 
 auth.settings.login_next = URL('todo', 'index')
-auth.settings.logout_next = URL('index')
+auth.settings.logout_next = URL('user/login')
 auth.settings.register_next = URL('todo', 'index')
 
 mail = Mail()
