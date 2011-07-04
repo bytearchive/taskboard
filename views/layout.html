@@ -1,0 +1,36 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <title>{{=response.title or request.application}}</title>
+        <link rel="stylesheet" type="text/css" href="{{=URL('todo', 'static/css', 'main.css')}}">
+    </head>
+    <body class="signup">
+    <div id="wrapper">
+        <div id="header" class="left">
+            <h1> <a href="{{=URL('todo', 'default', 'index' )}}"></a> </h1>
+        </div>
+	<div id="fullContainer">
+	<div id="container" class="internal">
+		<div id="topcorners"><div class="cleft"></div><div class="cright"></div></div>
+		<div id="top">
+			<div class="col1">
+				<h2>{{=title}}</h2>
+			</div>
+			<div class="clear"></div>
+			<div class="cleft"></div>
+			<div class="cright"></div>
+		</div>
+		<div id="content">
+            {{include}}
+		</div>
+	</div>
+</div>
+    <div id="footer">
+        <p>
+            <a href="{{=URL('index')}}">Home</a> <span>|</span>
+            <a href="https://mail.google.com/mail/?extsrc=mailto&url=mailto%3Ataskboard@hazy.me" target="_blank" rel="noreferrer">Contact Us</a>
+        </p>
+        <p>Copyright © 2011 Taskboard All rights reserved.</p>
+    </div>
+</body></html>

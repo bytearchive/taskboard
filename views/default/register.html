@@ -1,76 +1,39 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml">
-    <head>
-        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>Sign up</title>
-        <link rel="stylesheet" type="text/css" href="{{=URL('todo', 'static/css', 'main.css')}}">
-    </head>
-    <body class="signup">
-    <div id="wrapper">
-        <div id="header" class="left">
-            <h1>
-                <a href="{{=URL('todo', 'default', 'index' )}}"></a>
-            </h1>
-        </div>
-	<div id="fullContainer">
-	<div id="container" class="internal">
-		<div id="topcorners"><div class="cleft"></div><div class="cright"></div></div>
-		<div id="top">
-			<div class="col1">
-				<h2>Sign up</h2>
-			</div>
-			<div class="clear"></div>
-			<div class="cleft"></div>
-			<div class="cright"></div>
-		</div>
-		<div id="content">
-            {{=form.custom.begin}} 
-			<table class="signup">
-				<tbody>
-                        <tr>
-                            <th>First name:</th> 
-                            <td>{{=form.custom.widget.first_name}} </td>
-                        </tr>
-                        <tr>
-                            <th>Last name:</th> 
-                            <td>{{=form.custom.widget.last_name}} </td>
-                        </tr>
-                        <tr>
-                            <th>Email:</th> 
-                            <td>{{=form.custom.widget.email}} </td>
-                        </tr>
-                        <tr>
-                            <th>Password:</th> 
-                            <td>{{=form.custom.widget.password}} </td>
-                        </tr>
-                        <tr>
-                            <th>Repeat password:</th> 
-                            <td>{{=form.custom.widget.password_two}} </td>
-                        </tr>
-				</tbody></table>
-				
-				<table class="signup" style="width: 100%;">
-                    <tbody>
-                    <tr>
-                        <td class="separator" colspan="2"><div></div></td>
-                    </tr>
-                    <tr>
-                        <th></th>
-                        <td>
-                            <input class="bprimarypub80 mtop1" type="submit" value="Create Account">
-                        </td>
-                    </tr>
-                    </tbody>
-                </table>
-		    {{=form.custom.end}}	
-		</div>
-	</div>
-</div>
-    <div id="footer">
-        <p>
-            <a href="{{=URL('index')}}">Home</a> <span>|</span>
-            <a href="https://mail.google.com/mail/?extsrc=mailto&url=mailto%3Ataskboard@hazy.me" target="_blank" rel="noreferrer">Contact Us</a>
-        </p>
-        <p>Copyright © 2011 Taskboard All rights reserved.</p>
-    </div>
-</body></html>
+{{extend 'layout.html'}}
+{{=form.custom.begin}} 
+<table class="signup">
+    <tbody>
+            <tr>
+                <th>First name:</th> 
+                <td>{{=form.custom.widget.first_name}} </td>
+            </tr>
+            <tr>
+                <th>Last name:</th> 
+                <td>{{=form.custom.widget.last_name}} </td>
+            </tr>
+            <tr>
+                <th>Email:</th> 
+                <td>{{=form.custom.widget.email}} </td>
+            </tr>
+            <tr>
+                <th>Password:</th> 
+                <td>{{=form.custom.widget.password}} </td>
+            </tr>
+            <tr>
+                <th>Repeat password:</th> 
+                <td>{{=form.custom.widget.password_two}} </td>
+            </tr>
+    </tbody></table>
+    <table class="signup" style="width: 100%;">
+        <tbody>
+        <tr>
+            <td class="separator" colspan="2"><div></div></td>
+        </tr>
+        <tr>
+            <th></th>
+            <td>
+                <input class="bprimarypub80 mtop1" type="submit" value="Create Account">
+            </td>
+        </tr>
+        </tbody>
+    </table>
+{{=form.custom.end}}	

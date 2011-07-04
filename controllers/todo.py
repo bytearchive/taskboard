@@ -20,7 +20,7 @@ def update():
 
 def __insert_welcome_todos():
     logger.info('insert welcome todos')
-    welcome_todos = [ {'text': "<p><i>Welcome to</i></p><h2>Taskboard 10k</h2>", 
+    welcome_todos = [ {'text': "<p><i>Welcome to</i></p><h2>Taskboard</h2>", 
                'type': 'white', 'margin_top': 0.0916, 'margin_left': 0.1054 },
         {'text': "Need a new card? Just grab it from a deck on the left",
                'type': 'yellow', 'margin_top': 0.2122, 'margin_left': 0.13125 },

@@ -630,8 +630,8 @@ color: #aa8;
 
 div.internal div#top {
 padding: 10px 30px 20px 30px;
-background: #e6e6d3 url(../images/grad_top_internal_01.gif) bottom left repeat-x;
-border-bottom: 1px solid #E8E8D7;
+background: #e6e6d3; 
+border-bottom: 1px dotted #BBB;
 }
 
 
@@ -650,7 +650,7 @@ font-size: 22px;
 }
 
 div.internal div#topcorners {
-background: #f5f5ef;
+background: #e6e6d3;
 height: 10px;
 width: 940px;
 margin: 0 auto;
@@ -660,7 +660,7 @@ div.internal div#topcorners div.cleft {
 position: absolute;
 width: 10px;
 height: 10px;
-background: url(../images/content_corner_sprite1_01.gif) 0px 0px no-repeat;
+background: url(../images/box_corner.png) 0px 0px no-repeat;
 top: 0;
 left: -10px;
 }
@@ -668,7 +668,7 @@ div.internal div#topcorners div.cright {
 position: absolute;
 width: 10px;
 height: 10px;
-background: url(../images/content_corner_sprite1_01.gif) -12px 0px no-repeat;
+background: url(../images/box_corner.png) -12px 0px no-repeat;
 top: 0;
 right: -10px;
 }
