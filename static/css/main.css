@@ -1534,6 +1534,34 @@ width: 125px;
 
 table.signup td {
 }
+table.login input.string {
+width: 250px;
+color: #515348;
+}
+table.login input.password {
+width: 250px;
+color: #515348;
+}
+table.signup input.inputtext {
+width: 250px;
+color: #515348;
+}
+
+table.signup select {
+padding: 3px;
+color: #515348;
+}
+
+table.signup tr td.separator {
+padding: 10px 0 10px 0;
+}
+table.signup tr td.separator div {
+border-top: 1px dotted #bbb;
+height: 0;
+line-height: 0;
+font-size: 0;
+}
+
 table.signup input.inputtext {
 width: 250px;
 color: #515348;

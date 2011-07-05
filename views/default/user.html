@@ -24,10 +24,14 @@
                 {{=form.custom.begin}}
                 <table class="login" style="margin-left: auto; margin-right: auto;">
                     <tbody><tr>
-                        <td><p class="mtop0 mbottom025"><strong><label for="email">Email</label></strong></p><input id="email" tabindex="1" class="inputtext" type="text" name="email"></td>
+                            <td><p class="mtop0 mbottom025"><strong><label for="email">Email</label></strong></p>
+                            {{=form.custom.widget.email}}
+                            </td>
                     </tr>
                     <tr>
-                        <td><p class="mtop05 mbottom025"><strong><label for="password">Password</label></strong></p><input tabindex="2" class="inputtext" type="password" name="password" id="password"></td>
+                        <td><p class="mtop05 mbottom025"><strong><label for="password">Password</label></strong></p>
+                            {{=form.custom.widget.password}} 
+                        </td>
 						</tr>
                     <tr>
                         <td>

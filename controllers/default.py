@@ -12,6 +12,9 @@ def request_reset_password():
 def reset_password():
     return dict(form=auth.reset_password(), title='Reset Password')
 
+def profile():
+    return dict(form=auth.profile(), title='Profile')
+
 def user():
     arg = request.args(0)
     if arg == 'login' and auth.user != None:

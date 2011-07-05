@@ -4,8 +4,15 @@
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>{{=response.title or request.application}}</title>
         <link rel="stylesheet" type="text/css" href="{{=URL('todo', 'static/css', 'main.css')}}">
+        <link rel=stylesheet href="{{=URL('todo', 'static', 'css/s.css')}}">
     </head>
     <body class="signup">
+    <div id="user-panel">
+    <p>
+    Welcome, <a href={{=URL('default', 'profile')}}>{{="%s %s" % (auth.user.first_name, auth.user.last_name)}}</a> | <a href={{=URL('todo', 'default', 'user/logout')}}>Logout</a>
+    <p>
+    </div>
+
     <div id="wrapper">
         <div id="header" class="left">
             <h1> <a href="{{=URL('todo', 'default', 'index' )}}"></a> </h1>
