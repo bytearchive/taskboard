@@ -9,6 +9,7 @@ auth.settings.hmac_key = 'sha512:b868ae2b-9b73-4541-a54b-ce5e1a50f3b9'
 auth.define_tables()                          
 auth.settings.registration_requires_verification = False
 auth.settings.registration_requires_approval = False
+auth.messages.reset_password = 'Click on the link http://'+request.env.http_host+URL('default','reset_password')+'/%(key)s to reset your password'
 
 auth.settings.login_next = URL('todo', 'index')
 auth.settings.logout_next = URL('user/login')
