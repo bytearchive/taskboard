@@ -1644,7 +1644,7 @@ padding: 0;
 .signup div.error {
 width: 575px !important;
 margin-bottom: 20px;
-margin-top: -5px;
+margin-top: 0;
 }
 p.error {
 margin: 1px 0 5px 0 !important;

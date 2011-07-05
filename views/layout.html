@@ -22,6 +22,9 @@
 			<div class="cright"></div>
 		</div>
 		<div id="content">
+            {{if response.flash:}}
+                 <div class="error">{{=response.flash or ''}}</div>
+            {{pass}}
             {{include}}
 		</div>
 	</div>
