@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 
 def index():
-    redirect('/todo/default/user/login')
+    redirect('/todo/default/login')
 
 def register():
     return dict(form=auth.register(), title='Sign Up')
@@ -15,10 +15,7 @@ def reset_password():
 def profile():
     return dict(form=auth.profile(), title='Profile')
 
-def user():
-    arg = request.args(0)
-    if arg == 'login' and auth.user != None:
+def login():
+    if auth.user != None:
         redirect('/todo/todo/index')
-    return dict(form=auth())
-#return dict(form=auth(), title='Sign Up')
-
+    return dict(form=auth.login())
