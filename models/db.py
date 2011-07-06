@@ -11,7 +11,6 @@ auth.settings.registration_requires_verification = False
 auth.settings.registration_requires_approval = False
 auth.messages.reset_password = 'Click on the link http://'+request.env.http_host+URL('default','reset_password')+'/%(key)s to reset your password'
 
-auth.settings.login_url = URL('todo', 'index')
 auth.settings.login_next = URL('todo', 'index')
 auth.settings.logout_next = URL('default', 'index')
 auth.settings.register_next = URL('todo', 'index')

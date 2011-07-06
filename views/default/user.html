@@ -2,14 +2,14 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-    <title>CSS Ribbon</title>
+    <title>{{=title or request.application}}</title>
     <link rel=stylesheet href="{{=URL('todo', 'static', 'css/ribbon.css')}}">
 </head>
 <body>
 <div id="container">
     <div class="bubble">
     <div class="info">
-        <h2>Taskboard</h2>
+        <h2 id="logo-title">Taskboard</h2>
 
         <div id="content">
             {{if response.flash:}}
@@ -42,15 +42,22 @@
         <p class="forget_password"><a href={{=URL('todo', 'default', 'request_reset_password')}}>Forgot password?</a></p>
         </div>
     </div>
-
     <div class="menu">
         <ul>
-            <!--<li class="l2"><a href="{{=URL('todo', 'default', 'request_reset_password')}}">forget passward?</a></li>-->
             <li class="signup"><a href="{{=URL('register')}}">Sign Up!</a></li>
         </ul>
     </div>
     </div>
 </div>
+
+<div id="footer">
+    <p>
+        <a href="{{=URL('index')}}">Home</a> <span>|</span>
+        <a href="https://mail.google.com/mail/?extsrc=mailto&url=mailto%3Ataskboard@hazy.me" target="_blank" rel="noreferrer">Contact Us</a>
+    </p>
+    <p>Copyright © 2011 Taskboard All rights reserved.</p>
+</div>
+
 
 </body>
 </html>

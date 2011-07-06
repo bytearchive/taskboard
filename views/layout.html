@@ -1,47 +1,31 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
-    <head>
-        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>{{=response.title or request.application}}</title>
-        <link rel="stylesheet" type="text/css" href="{{=URL('todo', 'static/css', 'main.css')}}">
-        <link rel=stylesheet href="{{=URL('todo', 'static', 'css/s.css')}}">
-    </head>
-    <body class="signup">
-    {{if auth.is_logged_in():}}
-    <div id="user-panel">
-    <p>
-    Welcome, <a href={{=URL('default', 'profile')}}>{{="%s %s" % (auth.user.first_name, auth.user.last_name)}}</a> | <a href={{=URL('todo', 'default', 'user/logout')}}>Logout</a>
-    <p>
-    </div>
-    {{pass}}
-    <div id="wrapper">
-        <div id="header" class="left">
-            <h1> <a href="{{=URL('todo', 'default', 'index' )}}"></a> </h1>
-        </div>
-	<div id="fullContainer">
-	<div id="container" class="internal">
-		<div id="topcorners"><div class="cleft"></div><div class="cright"></div></div>
-		<div id="top">
-			<div class="col1">
-				<h2>{{=title}}</h2>
-			</div>
-			<div class="clear"></div>
-			<div class="cleft"></div>
-			<div class="cright"></div>
-		</div>
-		<div id="content">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <title>{{=title or request.application}}</title>
+    <link rel=stylesheet href="{{=URL('todo', 'static', 'css/ribbon.css')}}">
+</head>
+<body>
+<div id="container" style="width: 850px; margin-top: 50px;">
+    <div class="bubble" style="width: 800px;">
+    <div class="info">
+        <h2 id="logo-title"><a href="{{=URL('todo', 'default', 'index')}}" style="text-decoration: none; color: #777;">Taskboard</a></h2>
+        <div id="form-body">
             {{if response.flash:}}
-                 <div class="error">{{=response.flash or ''}}</div>
+             <div class="error">{{=response.flash or ''}}</div>
             {{pass}}
             {{include}}
-		</div>
-	</div>
-</div>
-    <div id="footer">
-        <p>
-            <a href="{{=URL('index')}}">Home</a> <span>|</span>
-            <a href="https://mail.google.com/mail/?extsrc=mailto&url=mailto%3Ataskboard@hazy.me" target="_blank" rel="noreferrer">Contact Us</a>
-        </p>
-        <p>Copyright © 2011 Taskboard All rights reserved.</p>
+        </div>
     </div>
-</body></html>
+    </div>
+</div>
+
+<div id="footer">
+    <p>
+        <a href="{{=URL('index')}}">Home</a> <span>|</span>
+        <a href="https://mail.google.com/mail/?extsrc=mailto&url=mailto%3Ataskboard@hazy.me" target="_blank" rel="noreferrer">Contact Us</a>
+    </p>
+    <p>Copyright © 2011 Taskboard All rights reserved.</p>
+</div>
+</body>
+</html>
