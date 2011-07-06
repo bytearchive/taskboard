@@ -7,12 +7,13 @@
         <link rel=stylesheet href="{{=URL('todo', 'static', 'css/s.css')}}">
     </head>
     <body class="signup">
+    {{if auth.is_logged_in():}}
     <div id="user-panel">
     <p>
     Welcome, <a href={{=URL('default', 'profile')}}>{{="%s %s" % (auth.user.first_name, auth.user.last_name)}}</a> | <a href={{=URL('todo', 'default', 'user/logout')}}>Logout</a>
     <p>
     </div>
-
+    {{pass}}
     <div id="wrapper">
         <div id="header" class="left">
             <h1> <a href="{{=URL('todo', 'default', 'index' )}}"></a> </h1>
